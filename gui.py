@@ -31,3 +31,5 @@ class GUI:
             self.cuadricula.TKCanvas.create_rectangle(coords[0]*self.tamanoDeCeldaX,coords[1]*self.tamanoDeCeldaY,coords[0]*self.tamanoDeCeldaX+self.tamanoDeCeldaX,coords[1]*self.tamanoDeCeldaY+self.tamanoDeCeldaY, fill="PINK")
         elif type=="queso":
             self.cuadricula.TKCanvas.create_rectangle(coords[0]*self.tamanoDeCeldaX,coords[1]*self.tamanoDeCeldaY,coords[0]*self.tamanoDeCeldaX+self.tamanoDeCeldaX,coords[1]*self.tamanoDeCeldaY+self.tamanoDeCeldaY, fill="YELLOW")
+        elif type=="camino":
+            self.cuadricula.TKCanvas.create_rectangle(coords[0]*self.tamanoDeCeldaX,coords[1]*self.tamanoDeCeldaY,coords[0]*self.tamanoDeCeldaX+self.tamanoDeCeldaX,coords[1]*self.tamanoDeCeldaY+self.tamanoDeCeldaY, fill="GREEN")
