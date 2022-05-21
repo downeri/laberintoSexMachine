@@ -1,9 +1,7 @@
 from copy import deepcopy
 import json
 from pydoc import importfile
-from re import X
 import PySimpleGUI as sg
-import numpy as np
 from gui import GUI
 
 def obtener_configuracion(laberinto,coordenadasQueso,coordenadasRaton,coordenadasParedes):

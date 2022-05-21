@@ -1,5 +1,4 @@
 import PySimpleGUI as sg
-import numpy as np
 from pyparsing import col
 
 class GUI:
