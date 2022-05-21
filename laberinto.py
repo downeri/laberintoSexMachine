@@ -46,9 +46,9 @@ def obtenerOpciones(posicion,coordenadasParedes,estado,tamanoLab):
         opciones.remove(xPositivo)
     if xNegativo in coordenadasParedes or xNegativo[0]<0 or xNegativo in estado:
         opciones.remove(xNegativo)
-    if yPositivo in coordenadasParedes or yPositivo[1]<0 or yPositivo in estado:
+    if yPositivo in coordenadasParedes or yPositivo[1]>tamanoLab[1]-1 or yPositivo in estado:
         opciones.remove(yPositivo)
-    if yNegativo in coordenadasParedes or yNegativo[1]>tamanoLab[1]-1 or yNegativo in estado:
+    if yNegativo in coordenadasParedes or yNegativo[1]<0 or yNegativo in estado:
         opciones.remove(yNegativo)
     return opciones
 
