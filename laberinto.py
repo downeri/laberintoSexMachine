@@ -5,9 +5,9 @@ import PySimpleGUI as sg
 from gui import GUI
 
 def obtener_configuracion(laberinto,coordenadasQueso,coordenadasRaton,coordenadasParedes):
+    gui=GUI()
     with open("config.json") as f:
         configuracion=json.load(f)
-
     columnas=len(configuracion["laberinto"][0][0])
     for i in range(len(configuracion["laberinto"])):
         if columnas!=len(configuracion["laberinto"][i][0]):
@@ -24,10 +24,10 @@ def obtener_configuracion(laberinto,coordenadasQueso,coordenadasRaton,coordenada
             elif laberinto[i][u]=="X":
                 coordenadasParedes.append([u,i])
     if coordenadasQueso==[]:
-        print("No se encontró el queso")
+        gui.mensaje("Error","No se encontró el queso")
         return None,None
     if coordenadasRaton==[]:
-        print("No se encontró el ratón")
+        gui.mensaje("Error","No se encontró el ratón")
         return None,None
     if configuracion["tieneVida"]==True:
         vida=configuracion["vida"].copy()
@@ -73,15 +73,15 @@ def main():
     coordenadasQueso=[]
     coordenadasParedes=[]
     estado=[]
+    gui=GUI()
     x,vida=obtener_configuracion(laberinto,coordenadasQueso,coordenadasRaton,coordenadasParedes)
     estado.append(coordenadasRaton)
     if x!=None:
         opciones=obtenerOpciones(coordenadasRaton,coordenadasParedes,estado,[len(laberinto[0]),len(laberinto)])
         r=encontrar(coordenadasQueso,opciones,estado,coordenadasParedes,[len(laberinto[0]),len(laberinto)])
         if r==False:
-            print("No se encontró el queso")
+            gui.mensaje("Sin solución","No se encontró un camino para el queso")
         else:
-            gui=GUI()
             gui.crearGUI(len(laberinto[0]),len(laberinto))
             for pared in coordenadasParedes:
                 gui.insertarObjeto(pared)

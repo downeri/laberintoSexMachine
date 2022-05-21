@@ -2,7 +2,17 @@ import PySimpleGUI as sg
 from pyparsing import col
 
 class GUI:
-    def crearGUI(   self,columnas,filas):
+    def mensaje(self,titulo,mensaje):
+        sg.theme("DarkGrey5")
+        layout=[[sg.Text(mensaje)],[sg.Exit()]]
+        ventana=sg.Window(titulo,layout,finalize="true")
+        while True:
+            event,values=ventana.read()
+            if event in (None, "Exit"):
+                break
+        ventana.close()
+
+    def crearGUI(self,columnas,filas):
         self.filas=filas
         self.columnas=columnas
         self.tamanoDeCeldaX=500/self.columnas
@@ -31,4 +41,4 @@ class GUI:
         elif type=="queso":
             self.cuadricula.TKCanvas.create_rectangle(coords[0]*self.tamanoDeCeldaX,coords[1]*self.tamanoDeCeldaY,coords[0]*self.tamanoDeCeldaX+self.tamanoDeCeldaX,coords[1]*self.tamanoDeCeldaY+self.tamanoDeCeldaY, fill="YELLOW")
         elif type=="camino":
-            self.cuadricula.TKCanvas.create_rectangle(coords[0]*self.tamanoDeCeldaX,coords[1]*self.tamanoDeCeldaY,coords[0]*self.tamanoDeCeldaX+self.tamanoDeCeldaX,coords[1]*self.tamanoDeCeldaY+self.tamanoDeCeldaY, fill="GREEN")
+            self.cuadricula.TKCanvas.create_rectangle(coords[0]*self.tamanoDeCeldaX,coords[1]*self.tamanoDeCeldaY,coords[0]*self.tamanoDeCeldaX+self.tamanoDeCeldaX,coords[1]*self.tamanoDeCeldaY+self.tamanoDeCeldaY, fill="#91eb7a")
