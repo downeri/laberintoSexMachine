@@ -2,6 +2,25 @@ import PySimpleGUI as sg
 from pyparsing import col
 
 class GUI:
+    def elejir(self):
+        opcion=0
+        sg.theme("DarkGrey5")
+        layout=[[sg.Button("Una posibilidad")],[sg.Button("Todas las posibilidades")],[sg.Exit()]]
+        ventana=sg.Window("Holaa",layout,finalize="true")
+        while True:
+            event,values=ventana.read()
+            if event in (None, "Exit"):
+                break
+            elif event in (None,"Una posibilidad"):
+                opcion=1
+                break
+            elif event in (None,"Todas las posibilidades"):
+                opcion=2
+                break
+        ventana.close()
+        if opcion!=0:
+            return opcion
+    
     def mensaje(self,titulo,mensaje):
         sg.theme("DarkGrey5")
         layout=[[sg.Text(mensaje)],[sg.Exit()]]
@@ -12,14 +31,14 @@ class GUI:
                 break
         ventana.close()
 
-    def crearGUI(self,columnas,filas):
+    def crearGUI(self,columnas,filas,titulo):
         self.filas=filas
         self.columnas=columnas
         self.tamanoDeCeldaX=500/self.columnas
         self.tamanoDeCeldaY=500/self.filas
         sg.theme("DarkGrey5")
         self.layout=[[sg.Canvas(size=(500,500),background_color="white",key="cuad")],[sg.Exit()]]
-        self.ventana=sg.Window("Laberinto",self.layout,finalize="true")
+        self.ventana=sg.Window(titulo,self.layout,finalize="true")
         self.cuadricula=self.ventana["cuad"]
         for i in range(self.columnas):
             self.cuadricula.TKCanvas.create_line(self.tamanoDeCeldaX*i,0,self.tamanoDeCeldaX*i,500)

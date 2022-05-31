@@ -12,7 +12,7 @@ def obtener_configuracion(laberinto,coordenadasQueso,coordenadasRaton,coordenada
     for i in range(len(configuracion["laberinto"])):
         if columnas!=len(configuracion["laberinto"][i][0]):
             print(f"Las columnas de la fila {i} no coinciden con las columnas establecidas en la fila 0")
-            return None
+            return None,None
         laberinto.append(configuracion["laberinto"][i][0].split())
         for u in range(len(laberinto[i])):
             if laberinto[i][u]=="R":
@@ -61,13 +61,37 @@ def encontrar(objetivo,opciones,estado,coordenadasParedes,tamanoLab):
         estadoTemp=deepcopy(estado)
         estadoTemp.append(opcion)
         nuevasOpciones=obtenerOpciones(opcion,coordenadasParedes,estadoTemp,tamanoLab)
-        print(nuevasOpciones)
         r=encontrar(objetivo,nuevasOpciones,estadoTemp,coordenadasParedes,tamanoLab)
         if r!=False:
             return r
     return False
 
-def main():
+def encontrarTodasPosibilidades(objetivo,opciones,estado,coordenadasParedes,tamanoLab,respuestas):
+    if objetivo in opciones:
+        estado.append(objetivo)
+        respuestas.append(estado)
+    elif len(opciones)==0:
+        return False
+    for opcion in opciones:
+        estadoTemp=deepcopy(estado)
+        estadoTemp.append(opcion)
+        nuevasOpciones=obtenerOpciones(opcion,coordenadasParedes,estadoTemp,tamanoLab)
+        encontrarTodasPosibilidades(objetivo,nuevasOpciones,estadoTemp,coordenadasParedes,tamanoLab,respuestas)
+    if len(respuestas)==0:
+        return False
+    return True
+
+def dibujarLaberinto(gui,laberinto,coordenadasParedes,coordenadasRaton,coordenadasQueso,r,titulo):
+    gui.crearGUI(len(laberinto[0]),len(laberinto),titulo)
+    for pared in coordenadasParedes:
+        gui.insertarObjeto(pared)
+    gui.insertarObjeto(coordenadasRaton,type="raton")
+    gui.insertarObjeto(coordenadasQueso, type="queso")
+    for camino in r[1:len(r)-1]:
+        gui.insertarObjeto(camino, type="camino")
+    gui.mostrarGUI()
+
+def main(): 
     laberinto=[]
     coordenadasRaton=[]
     coordenadasQueso=[]
@@ -77,19 +101,25 @@ def main():
     x,vida=obtener_configuracion(laberinto,coordenadasQueso,coordenadasRaton,coordenadasParedes)
     estado.append(coordenadasRaton)
     if x!=None:
+        seleccion=gui.elejir()
         opciones=obtenerOpciones(coordenadasRaton,coordenadasParedes,estado,[len(laberinto[0]),len(laberinto)])
-        r=encontrar(coordenadasQueso,opciones,estado,coordenadasParedes,[len(laberinto[0]),len(laberinto)])
-        if r==False:
-            gui.mensaje("Sin solución","No se encontró un camino para el queso")
-        else:
-            gui.crearGUI(len(laberinto[0]),len(laberinto))
-            for pared in coordenadasParedes:
-                gui.insertarObjeto(pared)
-            gui.insertarObjeto(coordenadasRaton,type="raton")
-            gui.insertarObjeto(coordenadasQueso, type="queso")
-            for camino in r[1:len(r)-1]:
-                gui.insertarObjeto(camino, type="camino")
-            gui.mostrarGUI()
+        if seleccion==1:
+            r=encontrar(coordenadasQueso,opciones,estado,coordenadasParedes,[len(laberinto[0]),len(laberinto)])
+            if r==False:
+                gui.mensaje("Sin solución","No se encontró un camino para el queso")
+            else:
+                dibujarLaberinto(gui,laberinto,coordenadasParedes,coordenadasRaton,coordenadasQueso,r,"Laberinto | Unica solución")
+        if seleccion==2:
+            respuestas=[]
+            encontrarTodasPosibilidades(coordenadasQueso,opciones,estado,coordenadasParedes,[len(laberinto[0]),len(laberinto)],respuestas)
+            if len(respuestas)!=0:
+                i=0
+                for respuesta in respuestas:
+                    i+=1
+                    dibujarLaberinto(gui,laberinto,coordenadasParedes,coordenadasRaton,coordenadasQueso,respuesta,f"Laberinto | Solucion {i}/{len(respuestas)}")
+            else:
+                gui.mensaje("Sin solución","No se encontró un camino para el queso")  
+        
         
 if __name__=="__main__":
     main()
