@@ -5,17 +5,20 @@ class GUI:
     def elejir(self):
         opcion=0
         sg.theme("DarkGrey5")
-        layout=[[sg.Button("Una posibilidad")],[sg.Button("Todas las posibilidades")],[sg.Exit()]]
-        ventana=sg.Window("Holaa",layout,finalize="true")
+        layout=[[sg.Button("Una posibilidad con vida")],[sg.Button("Una posibilidad")],[sg.Button("Todas las posibilidades")],[sg.Exit()]]
+        ventana=sg.Window("Bienvenido",layout,finalize="true")
         while True:
             event,values=ventana.read()
             if event in (None, "Exit"):
                 break
-            elif event in (None,"Una posibilidad"):
+            elif event in (None,"Una posibilidad con vida"):
                 opcion=1
                 break
-            elif event in (None,"Todas las posibilidades"):
+            elif event in (None,"Una posibilidad"):
                 opcion=2
+                break
+            elif event in (None,"Todas las posibilidades"):
+                opcion=3
                 break
         ventana.close()
         if opcion!=0:
@@ -31,13 +34,13 @@ class GUI:
                 break
         ventana.close()
 
-    def crearGUI(self,columnas,filas,titulo):
+    def crearGUI(self,columnas,filas,titulo,boton):
         self.filas=filas
         self.columnas=columnas
         self.tamanoDeCeldaX=500/self.columnas
         self.tamanoDeCeldaY=500/self.filas
         sg.theme("DarkGrey5")
-        self.layout=[[sg.Canvas(size=(500,500),background_color="white",key="cuad")],[sg.Exit()]]
+        self.layout=[[sg.Canvas(size=(500,500),background_color="white",key="cuad")],[sg.Button(boton)]]
         self.ventana=sg.Window(titulo,self.layout,finalize="true")
         self.cuadricula=self.ventana["cuad"]
         for i in range(self.columnas):
@@ -48,7 +51,7 @@ class GUI:
     def mostrarGUI(self):
         while True:
             event,values=self.ventana.read()
-            if event in (None, "Exit"):
+            if event in (None, "Salir") or event in (None, "Siguiente solución"):
                 break
         self.ventana.close()
 

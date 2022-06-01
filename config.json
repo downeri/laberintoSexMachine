@@ -1,18 +1,18 @@
 {
-    "tieneVida": false,
+    "tieneVida": true,
     "vida": {
-        "vidaTotal": 0,
-        "vidaHorizontal": 0,
-        "vidaVertical": 0
+        "vidaTotal": 6,
+        "vidaHorizontal": 1,
+        "vidaVertical": 1
     },
     "laberinto":   [["X X X R X X O O X"],
                     ["X O X O O X O X X"],
                     ["X O X X O O O O X"],
                     ["O O O O O X X O O"],
                     ["O X O X O X X X O"],
-                    ["O X O O O O O O O"],
+                    ["O X O O Q O O O O"],
                     ["O X X X O O X X O"],
                     ["O X X X O X O X X"],
                     ["O O O O O O O X X"],
-                    ["X O X X O X X X Q"]]
+                    ["X O X X O X X X X"]]
 }
