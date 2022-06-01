@@ -2,7 +2,7 @@ import PySimpleGUI as sg
 from pyparsing import col
 
 class GUI:
-    def elejir(self):
+    def elegir(self):
         opcion=0
         sg.theme("DarkGrey5")
         layout=[[sg.Button("Una posibilidad con vida")],[sg.Button("Una posibilidad")],[sg.Button("Todas las posibilidades")],[sg.Exit()]]
@@ -64,3 +64,13 @@ class GUI:
             self.cuadricula.TKCanvas.create_rectangle(coords[0]*self.tamanoDeCeldaX,coords[1]*self.tamanoDeCeldaY,coords[0]*self.tamanoDeCeldaX+self.tamanoDeCeldaX,coords[1]*self.tamanoDeCeldaY+self.tamanoDeCeldaY, fill="YELLOW")
         elif type=="camino":
             self.cuadricula.TKCanvas.create_rectangle(coords[0]*self.tamanoDeCeldaX,coords[1]*self.tamanoDeCeldaY,coords[0]*self.tamanoDeCeldaX+self.tamanoDeCeldaX,coords[1]*self.tamanoDeCeldaY+self.tamanoDeCeldaY, fill="#91eb7a")
+
+    def dibujarLaberinto(self,laberinto,coordenadasParedes,coordenadasRaton,coordenadasQueso,r,titulo,boton):
+        self.crearGUI(len(laberinto[0]),len(laberinto),titulo,boton)
+        for pared in coordenadasParedes:
+            self.insertarObjeto(pared)
+        self.insertarObjeto(coordenadasRaton,type="raton")
+        self.insertarObjeto(coordenadasQueso, type="queso")
+        for camino in r[1:len(r)-1]:
+            self.insertarObjeto(camino, type="camino")
+        self.mostrarGUI()
