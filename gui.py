@@ -5,24 +5,27 @@ class GUI:
     def elegir(self):
         opcion=0
         sg.theme("DarkGrey5")
-        layout=[[sg.Button("Una posibilidad con vida")],[sg.Button("Una posibilidad")],[sg.Button("Todas las posibilidades")],[sg.Exit()]]
+        layout=[[sg.Button("Una solución con vida")],[sg.Button("Primer solución encontrada")],[sg.Button("Todas las soluciones")],[sg.Button("Mejor solución")],[sg.Exit()]]
         ventana=sg.Window("Bienvenido",layout,finalize="true")
         while True:
             event,values=ventana.read()
             if event in (None, "Exit"):
+                opcion=0
                 break
-            elif event in (None,"Una posibilidad con vida"):
+            elif event in (None,"Una solución con vida"):
                 opcion=1
                 break
-            elif event in (None,"Una posibilidad"):
+            elif event in (None,"Primer solución encontrada"):
                 opcion=2
                 break
-            elif event in (None,"Todas las posibilidades"):
+            elif event in (None,"Todas las soluciones"):
                 opcion=3
                 break
+            elif event in (None,"Mejor solución"):
+                opcion=4
+                break
         ventana.close()
-        if opcion!=0:
-            return opcion
+        return opcion
     
     def mensaje(self,titulo,mensaje):
         sg.theme("DarkGrey5")
