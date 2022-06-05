@@ -5,7 +5,7 @@ class GUI:
     def elegir(self):
         opcion=0
         sg.theme("DarkGrey5")
-        layout=[[sg.Button("Una solución con vida")],[sg.Button("Primer solución encontrada")],[sg.Button("Todas las soluciones")],[sg.Button("Mejor solución")],[sg.Exit()]]
+        layout=[[sg.Text("Bienvenido al solucionador de laberinto, por favor, seleccione una opción: ")],[sg.Text()],[sg.Button("Una solución con vida")],[sg.Button("Primer solución encontrada")],[sg.Button("Todas las soluciones")],[sg.Button("Mejor solución")],[sg.Text()],[sg.Exit()]]
         ventana=sg.Window("Bienvenido",layout,finalize="true")
         while True:
             event,values=ventana.read()

@@ -29,7 +29,7 @@ class fvida:
         if objetivo in opciones[0]:
             u=opciones[0].index(objetivo)
             vidaTemp=deepcopy(vida)
-            if opciones[0][u][0]-objetivo[0]==1:
+            if opciones[1][u]=="H":
                 vidaTemp["vidaTotal"]-=vidaTemp["vidaHorizontal"]
             else:
                 vidaTemp["vidaTotal"]-=vidaTemp["vidaVertical"]
